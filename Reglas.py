@@ -26,7 +26,7 @@ class Reglas():
         return categorias_temperatura, categorias_humedad
         
     @staticmethod
-    def aplicar_reglas(categorias):
+    def aplicar_reglas(categorias: tuple):
         REGLAS = {
         # Estructura: (categoria_temperatura, categoria_humedad): velocidad_ventilador
         ('baja', 'seca'): 'moderado',

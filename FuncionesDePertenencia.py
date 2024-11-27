@@ -100,7 +100,7 @@ class GráficaVentilador:
         plt.plot(self.x, self.pertenenciaAlta, label='Fast/Rapido', color='green', alpha=0.7)
 
         plt.title("Funciones de pertenencia para clasificación de velocidad")
-        plt.xlabel("Velocidad del ventilador (RPM)")
+        plt.xlabel("Velocidad del ventilador (%)")
         plt.ylabel("Grado de pertenencia")
         plt.legend()
         plt.grid()
