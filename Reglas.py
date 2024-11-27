@@ -1,19 +1,6 @@
 from FuncionesDePertenencia import GráficaTemperatura, GráficaHumedad
 
 class Reglas():
-    REGLAS = {
-        # Estructura: (categoria_temperatura, categoria_humedad): velocidad_ventilador
-        ('baja', 'seca'): 'lento',
-        ('baja', 'normal'): 'lento',
-        ('baja', 'humeda'): 'moderado',
-        ('media', 'seca'): 'moderado',
-        ('media', 'normal'): 'moderado',
-        ('media', 'humeda'): 'rapido',
-        ('alta', 'seca'): 'rapido',
-        ('alta', 'normal'): 'rapido',
-        ('alta', 'humeda'): 'rapido'
-    }
-    
     @staticmethod
     def determinar_categorias(Temperatura, Humedad) -> tuple:
         # Grados de pertenencia para Temperatura
@@ -35,10 +22,43 @@ class Reglas():
         categorias_humedad = {cat: grado for cat, grado in grados_humedad.items() if grado != 0}
                 
         return categorias_temperatura, categorias_humedad
-    
-    
-    
+        
     @staticmethod
     def aplicar_reglas(categorias):
-        pass
+        REGLAS = {
+        # Estructura: (categoria_temperatura, categoria_humedad): velocidad_ventilador
+        ('baja', 'seca'): 'moderado',
+        ('baja', 'normal'): 'lento',
+        ('baja', 'humeda'): 'lento',
+        ('media', 'seca'): 'rapido',
+        ('media', 'normal'): 'moderado',
+        ('media', 'humeda'): 'lento',
+        ('alta', 'seca'): 'rapido',
+        ('alta', 'normal'): 'rapido',
+        ('alta', 'humeda'): 'moderado'
+        }
+        categorias_temperatura, categorias_humedad = categorias
+        
+        # Diccionario para almacenar las velocidades finales
+        velocidades_finales = {}
+        
+        # Iterar sobre todas las posibles combinaciones de categorías
+        for temp_cat, temp_grado in categorias_temperatura.items():
+            for hum_cat, hum_grado in categorias_humedad.items():
+                # Buscar la combinación en las reglas
+                if (temp_cat, hum_cat) in REGLAS:
+                    # Obtener la velocidad correspondiente
+                    velocidad = REGLAS[(temp_cat, hum_cat)]
+                    
+                    # Calcular el grado de pertenencia como el mínimo entre temperatura y humedad
+                    grado_pertenencia = min(temp_grado, hum_grado)
+                    
+                    # Acumular los grados de pertenencia para cada velocidad
+                    if velocidad in velocidades_finales:
+                        velocidades_finales[velocidad] = max(velocidades_finales[velocidad], grado_pertenencia)
+                    else:
+                        velocidades_finales[velocidad] = grado_pertenencia
+        
+        return velocidades_finales
+        
     

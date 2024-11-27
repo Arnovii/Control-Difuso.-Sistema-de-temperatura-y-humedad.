@@ -75,10 +75,12 @@ def main():
     print(f"[green]Humedad ingresada: [cyan]{humedad}%")
     print('[green]---------------------------------')
     
-    #Recibe una tupla, cuyos elementos son listas. En las listas se encuentran las categorias.
-    tuplaDeCategorias = Reglas.determinar_categorias(temperatura, humedad)
+    #Recibe una tupla, cuyos elementos son diccionarios. Clave: categoria, Valor: Grado
+    Categorias = Reglas.determinar_categorias(temperatura, humedad)
     
-    imprimir_categorias(tuplaDeCategorias)
+    imprimir_categorias(Categorias)
+    
+    print(Reglas.aplicar_reglas(Categorias))
     
     
     print("[yellow]Presione Enter para cerrar las gráficas...", end="")
