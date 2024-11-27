@@ -30,11 +30,12 @@ class Reglas():
             'humeda': GráficaHumedad.humeda(Humedad)
         }
         
-        # Categorías con grado de pertenencia diferente de 0
-        categorias_temperatura = [cat for cat, grado in grados_temperatura.items() if grado != 0]
-        categorias_humedad = [cat for cat, grado in grados_humedad.items() if grado != 0]
-        
+        # Diccionarios con categorías y sus grados de pertenencia diferentes de 0
+        categorias_temperatura = {cat: grado for cat, grado in grados_temperatura.items() if grado != 0}
+        categorias_humedad = {cat: grado for cat, grado in grados_humedad.items() if grado != 0}
+                
         return categorias_temperatura, categorias_humedad
+    
     
     
     @staticmethod

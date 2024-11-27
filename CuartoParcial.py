@@ -42,20 +42,29 @@ def obtener_inputs():
             print("[red]ERROR: Solo se permiten números.")
             continue
 
-def mostrar_grados_de_pertenencia_temp(temperatura):
-    baja = TEMPERATURA.baja(temperatura)
-    media = TEMPERATURA.media(temperatura)
-    alta = TEMPERATURA.alta(temperatura)
-    print(f"\n[white]Con una [magenta1]temperatura [white] de [cyan]{temperatura}°C[white], los grados de pertenencia son: \n[magenta1]baja:[cyan]\t{baja}[magenta1]\nmedia:[cyan]\t{media}\n[magenta1]alta:[cyan]\t{alta}[magenta1]\n")
-    
-def mostrar_grados_de_pertenencia_hum(humedad):
-    seca = HUMEDAD.seca(humedad)
-    normal = HUMEDAD.normal(humedad)
-    humeda = HUMEDAD.humeda(humedad)
-    print(f"\n[white]Con una [purple]humedad [white]de [cyan]{humedad}%[white], los grados de pertenencia son: \n [purple]seca:[cyan]\t{seca}[purple]\n normal:[cyan]{normal}[purple]\n humeda:[cyan]{humeda}\n")
+def imprimir_categorias(parametros):
+    # Imprimir una línea de inicio para separar visualmente
+    print('\n[bold magenta]---------------------------------')
 
-def calcular_interseccion(gradosDePertenencia:list, conjuntos:list):
-    pass
+    for idx, diccionario in enumerate(parametros):
+        # Título para cada diccionario con colores
+        if idx == 0:
+            print(f"[magenta1]Temperatura:[/magenta1]")
+        else:
+            print(f"[purple]Humedad:[/purple]")
+
+        # Recorrer el diccionario e imprimir clave y valor
+        for clave, valor in diccionario.items():
+            # Imprimir la clave y el valor con color cyan para el valor
+            print(f"  [cyan]- {clave}: {valor}[/cyan]")
+        
+        # Agregar un espacio solo después de la primera lista (Temperatura)
+        if idx == 0:
+            print()  # Espacio entre las listas para mayor claridad
+
+    # Imprimir una línea final de separación
+    print('[bold magenta]---------------------------------')
+    
 
 def main():
     print("[yellow]\n\nINGRESE LOS VALORES INICIALES\n")
@@ -65,14 +74,11 @@ def main():
     print(f"[green]Temperatura ingresada: [cyan]{temperatura}°C")
     print(f"[green]Humedad ingresada: [cyan]{humedad}%")
     print('[green]---------------------------------')
-
-    mostrar_grados_de_pertenencia_temp(temperatura)
-    mostrar_grados_de_pertenencia_hum(humedad)
     
     #Recibe una tupla, cuyos elementos son listas. En las listas se encuentran las categorias.
     tuplaDeCategorias = Reglas.determinar_categorias(temperatura, humedad)
     
-    print(tuplaDeCategorias)
+    imprimir_categorias(tuplaDeCategorias)
     
     
     print("[yellow]Presione Enter para cerrar las gráficas...", end="")
