@@ -42,62 +42,51 @@ def obtener_inputs():
             print("[red]ERROR: Solo se permiten números.")
             continue
 
-def imprimir_categorias(parametros):
-    # Imprimir una línea de inicio para separar visualmente
-    print('\n[bold magenta]---------------------------------')
-
-    for idx, diccionario in enumerate(parametros):
-        # Título para cada diccionario con colores
-        if idx == 0:
-            print(f"[magenta1]Temperatura:[/magenta1]")
-        else:
-            print(f"[purple]Humedad:[/purple]")
-
-        # Recorrer el diccionario e imprimir clave y valor
-        for clave, valor in diccionario.items():
-            # Imprimir la clave y el valor con color cyan para el valor
-            print(f"  [cyan]- {clave}: {valor}[/cyan]")
-        
-        # Agregar un espacio solo después de la primera lista (Temperatura)
-        if idx == 0:
-            print()  # Espacio entre las listas para mayor claridad
-
-    # Imprimir una línea final de separación
-    print('[bold magenta]---------------------------------')
-    
-
 def main():
-    print("[yellow]\n\nINGRESE LOS VALORES INICIALES\n")
+    print(f"[bold cyan]\n{'='*60}\nIngrese los valores: ")
     temperatura, humedad = obtener_inputs()
-
-    print('\n[green]---------------------------------')
-    print(f"[green]Temperatura ingresada: [cyan]{temperatura}°C")
-    print(f"[green]Humedad ingresada: [cyan]{humedad}%")
-    print('[green]---------------------------------')
     
+    
+    print(f"\n[bold cyan]{'='*60}")
+    print("[bold white]PRUEBA: Prueba manual")
+    print(f"[bold cyan]{'-'*60}")
+    
+    print("\n[bold white]ENTRADAS:")
+
+    print(f"{'Temperatura:':<15} [cyan]{temperatura:>6.1f}°C")
+    print(f"{'Humedad:':<15} [cyan]{humedad:>6.1f}%")
+
+    print("\n[bold white]GRADOS DE PERTENENCIA:")
+    print("[cyan]Temperatura:")
+    print(f"{'  Baja:':<15} [yellow]{TEMPERATURA.baja(temperatura):>6.3f}")
+    print(f"{'  Media:':<15} [yellow]{TEMPERATURA.media(temperatura):>6.3f}")
+    print(f"{'  Alta:':<15} [yellow]{TEMPERATURA.alta(temperatura):>6.3f}")
+
+    print("\n[cyan]Humedad:")
+    print(f"{'  Seca:':<15} [yellow]{HUMEDAD.seca(humedad):>6.3f}")
+    print(f"{'  Normal:':<15} [yellow]{HUMEDAD.normal(humedad):>6.3f}")
+    print(f"{'  Húmeda:':<15} [yellow]{HUMEDAD.humeda(humedad):>6.3f}")
+
     #Recibe una tupla, cuyos elementos son diccionarios. Clave: categoria, Valor: Grado
     Categorias = Reglas.determinar_categorias(temperatura, humedad)
-    
-    imprimir_categorias(Categorias)
-    
     velocidades_finales = Reglas.aplicar_reglas(Categorias)
-    print("\n[bold magenta]Grados de pertenencia de las velocidades calculadas:")
-    for velocidad, grado in velocidades_finales.items():
-        print(f"  [cyan]- {velocidad}: {grado}")
+    
+    #Diccionario para imprimir todas las categorias
+    diccionario_actualizado = {k: velocidades_finales.get(k, 0.0) for k in ['lento','moderado','rapido']}
+    print("\n[bold white]ACTIVACIÓN DE REGLAS:")
+    for tipo, valor in diccionario_actualizado.items():
+        print(f"{f'  {tipo.capitalize()}:':<15} [yellow]{valor:>6.3f}")
 
     # Defuzzificación
-    velocidad_final = Reglas.defuzzificar(velocidades_finales)
-    print(f"\n[bold green]La velocidad defuzzificada del ventilador es: [yellow]{velocidad_final:.2f}%")
-    
+    velocidad_final = Reglas.defuzzificar(velocidades_finales)    
         
+    print(f"\n[bold green]VELOCIDAD FINAL: [bold cyan]{velocidad_final:>6.1f}%")
+    print(f"[bold cyan]{'='*60}")
     
-    print("[yellow]Presione Enter para cerrar las gráficas...", end="")
+    
+    print("\n[yellow]Presione Enter para cerrar las gráficas...", end="")
     input()
     plt.close('all')  # Cerrar todas las ventanas al final  
-    
-    
-
 
 if __name__ == "__main__":
     main()
-    
