@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from rich import print
 import FuncionesDePertenencia as FDP
+from Reglas import Reglas
 
 #Valores en X para cada gráfica. 
 x_temp = np.linspace(0, 50, 500)
@@ -67,10 +68,20 @@ def main():
 
     mostrar_grados_de_pertenencia_temp(temperatura)
     mostrar_grados_de_pertenencia_hum(humedad)
+    
+    #Recibe una tupla, cuyos elementos son listas. En las listas se encuentran las categorias.
+    tuplaDeCategorias = Reglas.determinar_categorias(temperatura, humedad)
+    
+    print(tuplaDeCategorias)
+    
+    
+    print("[yellow]Presione Enter para cerrar las gráficas...", end="")
+    input()
+    plt.close('all')  # Cerrar todas las ventanas al final  
+    
+    
 
 
 if __name__ == "__main__":
     main()
-    print("[yellow]Presione Enter para cerrar las gráficas...", end="")
-    input()
-    plt.close('all')  # Cerrar todas las ventanas al final  
+    
