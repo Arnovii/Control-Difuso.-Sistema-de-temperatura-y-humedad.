@@ -80,8 +80,16 @@ def main():
     
     imprimir_categorias(Categorias)
     
-    print(Reglas.aplicar_reglas(Categorias))
+    velocidades_finales = Reglas.aplicar_reglas(Categorias)
+    print("\n[bold magenta]Grados de pertenencia de las velocidades calculadas:")
+    for velocidad, grado in velocidades_finales.items():
+        print(f"  [cyan]- {velocidad}: {grado}")
+
+    # Defuzzificación
+    velocidad_final = Reglas.defuzzificar(velocidades_finales)
+    print(f"\n[bold green]La velocidad defuzzificada del ventilador es: [yellow]{velocidad_final:.2f}%")
     
+        
     
     print("[yellow]Presione Enter para cerrar las gráficas...", end="")
     input()

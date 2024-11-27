@@ -95,9 +95,9 @@ class GráficaVentilador:
         plt.figure(num="Ventilador",figsize=(8, 4))
         plt.clf()  # Limpiar la figura anterior
         
-        plt.plot(self.x, self.pertenenciaLento, label='Baja', color='blue')
-        plt.plot(self.x, self.pertenenciaModerado, label='Media', color='orange')
-        plt.plot(self.x, self.pertenenciaAlta, label='Alta', color='green', alpha=0.7)
+        plt.plot(self.x, self.pertenenciaLento, label='Slow/Lento', color='blue')
+        plt.plot(self.x, self.pertenenciaModerado, label='Moderate/Moderado', color='orange')
+        plt.plot(self.x, self.pertenenciaAlta, label='Fast/Rapido', color='green', alpha=0.7)
 
         plt.title("Funciones de pertenencia para clasificación de velocidad")
         plt.xlabel("Velocidad del ventilador (RPM)")
